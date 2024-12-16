@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=750,user-scalable=no">
+    <meta name="author" content="Techeonn,niikhiljha@gmail.com Delhi">
+    <title>Feelings</title>
+    <style type="text/css">
+        @font-face {
+            font-family: digit;
+            src: url('./public/digital-7_mono.ttf') format("truetype");
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background: #000;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            z-index: -1;
+            animation: twinkling 100s linear infinite;
+        }
+
+        @keyframes twinkling {
+            0% { background-position: 0 0; }
+            100% { background-position: -10000px 5000px; }
+        }
+
+        #mainDiv {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #loveHeart {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            position: absolute;
+        }
+
+        #code {
+            position: absolute;
+            top: 57%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 2.5em;
+            color: #ff69b4;
+            text-shadow: 1px 1px 5px #ffacd2;
+            max-width: 80%;
+            line-height: 1.8em;
+        }
+
+        .signature {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #ffd700;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        #loveu {
+            animation: pulse 2s infinite;
+            font-size: 2em;
+            color: #ff69b4;
+            text-shadow: 2px 2px 10px #fff;
+        }
+
+        #playAudio {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #ff4500;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-shadow: 1px 1px 5px #000;
+    display: none;
+}
+
+#playAudio:hover {
+    background-color: #ffd700;
+    color: #000;
+}
+
+    </style>
+
+    <link href="./jscss/default.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="./jscss/jquery.js"></script>
+    <script type="text/javascript" src="./jscss/garden.js"></script>
+    <script type="text/javascript" src="./jscss/functions.js"></script>
+</head>
+
+<body>
+<div id="mainDiv">
+    <div id="loveHeart">
+        <canvas id="garden"></canvas>
+        <div id="code"></div>
+    </div>
+</div>
+
+<button id="playAudio">Start Audio</button>
+<audio id="audio" src="./public/kesariya.m4a" preload="auto"></audio>
+
+<script type="text/javascript">
+    const offsetX = $("#loveHeart").width() / 2;
+    const offsetY = $("#loveHeart").height() / 2 - 55;
+
+    if (!document.createElement('canvas').getContext) {
+        const msg = document.createElement("div");
+        msg.id = "errorMsg";
+        msg.innerHTML = "Your browser doesn't support HTML5!<br/>Please use Chrome, Firefox, Safari, or Edge.";
+        document.body.appendChild(msg);
+        $("#code").css("display", "none");
+        document.execCommand("stop");
+    } else {
+        const lines = [
+            "I m so lucky as U r part of my life timeline.",
+            "I wish you always smile",
+            "U look cutest and most beautiful when U smile.",
+            "Mai tumse fir se DOSTI karna chahta hu",
+            "Please tum hi batao Mai Aisa Kya Karu yaarr",
+            "Jiss se mai tumahra ek achha DOST ban pau",
+            "Mujhe Sirf wahi karna jiss se tum Khush raho",
+            "Please don't forget", "someone always here 4 u in any situation"
+        ];
+
+        function typeLine(line, index) {
+            setTimeout(() => {
+                $("#code").append(`<span class='comments'>${line}</span><br>`);
+                if (index === 0) {
+                    startHeartAnimation();
+                }
+            }, index * 2000); // Adjust timing for each line
+        }
+
+        lines.forEach((line, index) => {
+            typeLine(line, index);
+        });
+    }
+
+    // Attempt to autoplay audio
+    const audio = document.getElementById('audio');
+    audio.play().then(() => {
+        console.log("Audio autoplayed successfully.");
+    }).catch(() => {
+        console.log("Autoplay failed. Showing play button.");
+        document.getElementById('playAudio').style.display = 'block';
+    });
+
+    // Play audio on button click
+    document.getElementById('playAudio').addEventListener('click', () => {
+        audio.play();
+        document.getElementById('playAudio').style.display = 'none';
+    });
+</script>
+</body>
+</html>
